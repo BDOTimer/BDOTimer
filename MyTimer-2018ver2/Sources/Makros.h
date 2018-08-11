@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <windows.h>
 #include <fstream>
 #include <string>
@@ -13,20 +13,21 @@ using std::cout;
 
 #define MYDEBUG
 
-//--Макросы для работы с битами:-----------------------------------------------v
-#define BIT_1(  val, bit)   val |= (1<<bit)        // Установка 1.
-#define BIT_0(  val, bit)   val &= (~(1<<bit))     // Установка 0.
-#define BIT_Inv(val, bit)   val ^= (1<<bit)        // Инверсия бита.
-#define BIT_IS1(val, bit) ((val  & (1<<bit)) != 0) // Если 1.
-#define BIT_IS0(val, bit) ((val  & (1<<bit)) == 0) // Если 0.
+//--РњР°РєСЂРѕСЃС‹ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ Р±РёС‚Р°РјРё:-----------------------------------------------v
+#define BIT_1(  val, bit)   val |= (1<<bit)        // РЈСЃС‚Р°РЅРѕРІРєР° 1.
+#define BIT_0(  val, bit)   val &= (~(1<<bit))     // РЈСЃС‚Р°РЅРѕРІРєР° 0.
+#define BIT_Inv(val, bit)   val ^= (1<<bit)        // РРЅРІРµСЂСЃРёСЏ Р±РёС‚Р°.
+#define BIT_IS1(val, bit) ((val  & (1<<bit)) != 0) // Р•СЃР»Рё 1.
+#define BIT_IS0(val, bit) ((val  & (1<<bit)) == 0) // Р•СЃР»Рё 0.
 
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// Поддержка русской кодировки.                                               |
+/// РџРѕРґРґРµСЂР¶РєР° СЂСѓСЃСЃРєРѕР№ РєРѕРґРёСЂРѕРІРєРё.                                               |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-static char  bufRus[256];
+//static char  bufRus[256];
 inline char* rus(const char* _text)
-{   CharToOem(_text, bufRus);
-    return bufRus;
+{   //CharToOem(_text, bufRus);
+    
+    return (char*)_text;
 }
 
 #define    SIG cout << "SIGNAL!\n";
@@ -34,7 +35,7 @@ inline char* rus(const char* _text)
 #define PRNERR(_m_) std::cout << "Error: "<< _m_ << " fail!" << "\n"
 
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// Цвет вывода.                                                               |
+/// Р¦РІРµС‚ РІС‹РІРѕРґР°.                                                               |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 enum ConsoleColor
 {   Black         = 0,
@@ -60,19 +61,19 @@ void mySetColor(UINT text = 7, UINT background = 0) // #include <Windows.h>
 }
 #define COLOR(N,C) "";mySetColor(C);cout<<N;mySetColor();cout
 
-//--Подавляем варнинги:-------------------------------------------------------->
+//--РџРѕРґР°РІР»СЏРµРј РІР°СЂРЅРёРЅРіРё:-------------------------------------------------------->
 #pragma warning(disable : 4996     )
 
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// Защита от повторного запуска.                                              |
+/// Р—Р°С‰РёС‚Р° РѕС‚ РїРѕРІС‚РѕСЂРЅРѕРіРѕ Р·Р°РїСѓСЃРєР°.                                              |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 inline bool chek_mutex()
 {
     HANDLE _Present = CreateMutex(NULL,false,"My_Program_Already_Present");
     if(GetLastError() == ERROR_ALREADY_EXISTS)
-    {   cout << rus("Попытка запуска дубликата таймера!\n");
-        cout << rus("Таймер уже запущен!\n\n");
-        cout << rus("[ALT+1] - Спрятять/Показать Таймер...\n");
+    {   cout << rus("РџРѕРїС‹С‚РєР° Р·Р°РїСѓСЃРєР° РґСѓР±Р»РёРєР°С‚Р° С‚Р°Р№РјРµСЂР°!\n");
+        cout << rus("РўР°Р№РјРµСЂ СѓР¶Рµ Р·Р°РїСѓС‰РµРЅ!\n\n");
+        cout << rus("[ALT+1] - РЎРїСЂСЏС‚СЏС‚СЊ/РџРѕРєР°Р·Р°С‚СЊ РўР°Р№РјРµСЂ...\n");
         Sleep(2000);
         CloseHandle(_Present);
         return true;
@@ -81,7 +82,7 @@ inline bool chek_mutex()
 }
 
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// Добавляем наличие иконки.                                                  |
+/// Р”РѕР±Р°РІР»СЏРµРј РЅР°Р»РёС‡РёРµ РёРєРѕРЅРєРё.                                                  |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 void myicon()
 {   HMODULE hmod = LoadLibrary("Kernel32.dll");

@@ -1,5 +1,5 @@
-///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// √Î‡‚Ì˚È ÍÎ‡ÒÒ.                                                             |
+Ôªø///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+/// –ì–ª–∞–≤–Ω—ã–π –∫–ª–∞—Å—Å.                                                             |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 #include "Makros.h"
 
@@ -21,13 +21,13 @@ public:
         e_END
     }MODECONSOLWIN;
 
-    cMyTimer() : MODECONSOLWIN(e_START)//-- ÓÌÒÚÛÍÚÓ:----------------------->
+    cMyTimer() : MODECONSOLWIN(e_START)//--–ö–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä:----------------------->
     {   static connector conn_extHook(*this, &cMyTimer::extHook);
-        myLine.myGetLine.hook = &conn_extHook;
+        UserTime.myGetLine.hook = &conn_extHook;
     }
 
-    /// ƒ‡ÌÌ‡ˇ ÙÛÌÍˆËˇ ‚˚Á˚‚‡ÂÚÒˇ ‚ÌÛÚË cmyGetLine::get()--------------------->
-    /// ÔË Ì‡Ê‡ÚÓÈ ÍÎ‡‚Ë¯Ë ALT.
+    /// –î–∞–Ω–Ω–∞—è —Ñ—É–Ω–∫—Ü–∏—è –≤—ã–∑—ã–≤–∞–µ—Ç—Å—è –≤–Ω—É—Ç—Ä–∏ cmyGetLine::get()--------------------->
+    /// –ø—Ä–∏ –Ω–∞–∂–∞—Ç–æ–π –∫–ª–∞–≤–∏—à–∏ ALT.
     inline void extHook()
     {   while(true)
         {
@@ -35,14 +35,14 @@ public:
             {   Conwin.inverse_visible();
                 Conwin.set_active     ();
                 if(Conwin.bVisible)
-                {   myLine.propt();
+                {   UserTime.propt();
 
                 /*cout << ">>> ";
                 cout << myLine.getstr();
                 cout << "\n";*/
 
                     cout << ">>> ";
-                    cout << myLine.getstr();
+                    cout << UserTime.getstr();
                     //FlushConsoleInputBuffer(Conwin.hCon_INPUT);
                     
                 }
@@ -93,10 +93,10 @@ private:
     ///------------------------------------------------------------------------>
     cKeys   Keys;
     cConwin Conwin;
-    cMyLine myLine;
+    cGetUserTime UserTime;
     cMIDI   MIDI;
 
-    int     user_input_time; // ‚ ÒÂÍÛÌ‰‡ı.
+    int     user_input_time; // –≤ —Å–µ–∫—É–Ω–¥–∞—Ö.
     
     void cursor(int _v = TRUE)
     {   CONSOLE_CURSOR_INFO C;
@@ -115,10 +115,10 @@ private:
             );
             cursor(FALSE);
 
-            myLine.init(&Conwin);
+            UserTime.init(&Conwin);
             Conwin.show();
             Conwin.setmode_input();
-            PRN("œÓ‰„ÓÚÓ‚Í‡ Í ‡·ÓÚÂ...");
+            PRN("–ü–æ–¥–≥–æ—Ç–æ–≤–∫–∞ –∫ —Ä–∞–±–æ—Ç–µ...");
         
             MIDI.open(Conwin.get_HWND(), "signal.mid");
 
@@ -128,7 +128,7 @@ private:
 
     eMODECONSOLWIN input()//---------------------------------------------input()
     {   while(true)
-        {   user_input_time = myLine.get();
+        {   user_input_time = UserTime.get();
             //while(!Keys.checkkey(VK_ESCAPE)) Sleep(100);
             return e_CHECK;
         }
@@ -136,19 +136,19 @@ private:
 
     eMODECONSOLWIN check()//---------------------------------------------check()
     {   while(true)
-        {   cout << COLOR(rus("\n“‡ÈÏÂ ·˚Î Á‡ÔÛ˘ÂÌ!"), 10);
-            cout << COLOR(rus("\n¡˚ÒÚÓ ÒÔˇÚ‡Ú¸ “‡ÈÏÂ:[œÓ·ÂÎ]!"), 10);
-            cout << COLOR(rus("\nƒÎˇ ÓÚÏÂÌ˚ ÊÏË:        [Escape]"), 8);
-            cout << COLOR(rus("\nƒÎˇ ÍÓÌÚÓÎˇ ‚ÂÏÂÌË:  [ALT+1]\n"), 8);
+        {   cout << COLOR(rus("\n–¢–∞–π–º–µ—Ä –±—ã–ª –∑–∞–ø—É—â–µ–Ω!"), 10);
+            cout << COLOR(rus("\n–ë—ã—Å—Ç—Ä–æ —Å–ø—Ä—è—Ç–∞—Ç—å –¢–∞–π–º–µ—Ä:[–ü—Ä–æ–±–µ–ª]!"), 10);
+            cout << COLOR(rus("\n–î–ª—è –æ—Ç–º–µ–Ω—ã –∂–º–∏:        [Escape]"), 8);
+            cout << COLOR(rus("\n–î–ª—è –∫–æ–Ω—Ç—Ä–æ–ª—è –≤—Ä–µ–º–µ–Ω–∏:  [ALT+1]\n"), 8);
             //_getch();
 
-            int pause = 9000;//--------------------------ŒÊË‰‡ÌËÂ ÔÓ‚ÂÍË ‚‚Ó‰‡:
+            int pause = 9000;//--------------------------–û–∂–∏–¥–∞–Ω–∏–µ –ø—Ä–æ–≤–µ—Ä–∫–∏ –≤–≤–æ–¥–∞:
             while(!Keys.checkkey(VK_SPACE))
             {   if(Keys.checkkey(VK_ESCAPE))
                 {   return e_INPUT;
                 }
-                std::cout << rus("\r—Í˚ÚËÂ ÓÍÌ‡ ˜ÂÂÁ: ")
-                          << COLOR(pause/1000, 14) << rus(" ÒÂÍÛÌ‰.");
+                std::cout << rus("\r–°–∫—Ä—ã—Ç–∏–µ –æ–∫–Ω–∞ —á–µ—Ä–µ–∑: ")
+                          << COLOR(pause/1000, 14) << rus(" —Å–µ–∫—É–Ω–¥.");
                 Sleep(500);
                 pause -= 500;
                 user_input_time -= 500;
@@ -169,14 +169,14 @@ private:
         Conwin.setmode_monitor();
         for(int i = t; i > 0; i -= 500)
         {   if(Conwin.bVisible)
-                std::cout << "\r " << COLOR(i/1000, 14) << rus(" ÒÂÍÛÌ‰.");
+                std::cout << "\r " << COLOR(i/1000, 14) << rus(" —Å–µ–∫—É–Ω–¥.");
 
             Sleep(500);
 
             if(Conwin.check_active_visible() && Keys.key_Stop()) 
             {   system("cls");
                 Conwin.setmode_input();
-                std::cout << rus("\n œÂËÓ‰ Û‰‡ÎÂÌ!\a\n");
+                std::cout << rus("\n –ü–µ—Ä–∏–æ–¥ —É–¥–∞–ª–µ–Ω!\a\n");
                 Sleep(2000);
                 system("cls");
 
@@ -195,8 +195,8 @@ private:
         Conwin.show();
         Conwin.setmode_input();
     
-        cout << COLOR(rus("\n œŒ–¿ ƒ≈…—“¬Œ¬¿“‹!\n\n"), 14);
-        cout << " " << COLOR(myLine.getstr(), 12) << "\n";
+        cout << COLOR(rus("\n –ü–û–†–ê –î–ï–ô–°–¢–í–û–í–ê–¢–¨!\n\n"), 14);
+        cout << " " << COLOR(UserTime.getstr(), 12) << "\n";
         MIDI.play();
 DrawBM.init();
 DrawBM.Draw_center();
@@ -232,7 +232,7 @@ DrawBM.Draw_center();
             Conwin.setmode_input();
         
     
-            cout << COLOR(rus("\n œŒ–¿ ƒ≈…—“¬Œ¬¿“‹!\n"), 14);
+            cout << COLOR(rus("\n –ü–û–†–ê –î–ï–ô–°–¢–í–û–í–ê–¢–¨!\n"), 14);
         }*/
 
         while(true)

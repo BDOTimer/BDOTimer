@@ -1,11 +1,11 @@
-///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// Консольный ввод собственной выпечки.                                       |
+п»ї///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+/// РљРѕРЅСЃРѕР»СЊРЅС‹Р№ РІРІРѕРґ СЃРѕР±СЃС‚РІРµРЅРЅРѕР№ РІС‹РїРµС‡РєРё.                                       |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
 
-using std::cout;
+using std::wcout;
 
 inline bool checkkey(int MYKEY)
 {   if(GetAsyncKeyState(MYKEY) == -32767)
@@ -28,13 +28,14 @@ inline SHORT checkkey_ALT(int MYKEY)
 }
 //void cursor(int _v);
 
+extern char* LOCALE;
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 /// myGetLine.                                                                 |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 class cmyGetLine
 {
 public:
-    cmyGetLine()//---------------------------------------------------Конструктор
+    cmyGetLine()//---------------------------------------------------РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
     {   
     }
 
@@ -47,9 +48,7 @@ public:
         //cursor(0);
 
         while(true)
-        {   //system("cls");
-            
-            //cout << code;
+        {   
             if(!checkkey_ALT(VK_LMENU))
             {   
                 if(_kbhit())
@@ -78,6 +77,7 @@ public:
                         default:
                         {   if(_n > itterator)
                             {   char symb = static_cast<char>(code);
+                                OemToCharA(&symb, &symb);
                                 _b[itterator++] = symb;
                                 _b[itterator]   = 0;
                                 cout << symb;
@@ -87,7 +87,8 @@ public:
                 }
             }
             else
-            {   (*hook)();
+            {   //setlocale(LC_CTYPE, "rus");
+                (*hook)();
                 Sleep(200);
             }
             Sleep(20);
@@ -104,7 +105,7 @@ private://--------------------------------------------------------------------->
 };
 
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// Процедуры с глобальным временем.                                           |
+/// РџСЂРѕС†РµРґСѓСЂС‹ СЃ РіР»РѕР±Р°Р»СЊРЅС‹Рј РІСЂРµРјРµРЅРµРј.                                           |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 #include <ctime> 
 //#include <cmath>
@@ -116,7 +117,7 @@ public:
     int    hour;
     int    minutes;
 
-    // Колво минут обратного осчета в часы.------------------------------------>
+    // РљРѕР»РІРѕ РјРёРЅСѓС‚ РѕР±СЂР°С‚РЅРѕРіРѕ РѕСЃС‡РµС‚Р° РІ С‡Р°СЃС‹.------------------------------------>
     void converter_minutes_in_clock(int _minutes)
     {   get_nowtime();
         allseconds = _minutes * 60;
@@ -126,14 +127,14 @@ public:
         minutes = globaltime_future->tm_min;
         show();
     }
-    // Часы в минуты обратного осчета.----------------------------------------->
+    // Р§Р°СЃС‹ РІ РјРёРЅСѓС‚С‹ РѕР±СЂР°С‚РЅРѕРіРѕ РѕСЃС‡РµС‚Р°.----------------------------------------->
     void converter_clock_in_minutes(int _h, int _m)
     {       get_nowtime();
         int timesec    = (globaltime->tm_hour * 60 +
                           globaltime->tm_min) * 60 +
                           globaltime->tm_sec;
 
-            allseconds    = (60 * _h + _m)*60 - timesec;// От начала суток.
+            allseconds    = (60 * _h + _m)*60 - timesec;// РћС‚ РЅР°С‡Р°Р»Р° СЃСѓС‚РѕРє.
             if(allseconds < 0) allseconds += SECINDAY;
             hour          = _h;
             minutes       = _m;
@@ -146,7 +147,7 @@ private:
     tm*    globaltime;
     tm*    globaltime_future;
 
-    static const int SECINDAY = 86400; // Кол-во секунд в сутках.
+    static const int SECINDAY = 86400; // РљРѕР»-РІРѕ СЃРµРєСѓРЅРґ РІ СЃСѓС‚РєР°С….
 
     inline void get_nowtime()
     {       globalsec  = time(0);
@@ -154,22 +155,22 @@ private:
     }
 
     void show()
-    {   cout << rus("Текущее время:       ")
-             << COLOR(globaltime->tm_hour, 15) << rus(" ч") << " : " 
-             << COLOR(globaltime->tm_min,  15) << rus(" м") << "\n";
-        cout << rus("Установленное время: ")
-             << COLOR(hour,    15)    << rus(" ч") << " : " 
-             << COLOR(minutes, 15)    << rus(" м") << "\n";
-        cout << rus("Осталось всего секунд: ")
+    {   cout << rus("РўРµРєСѓС‰РµРµ РІСЂРµРјСЏ:       ")
+             << COLOR(globaltime->tm_hour, 15) << rus(" С‡") << " : " 
+             << COLOR(globaltime->tm_min,  15) << rus(" Рј") << "\n";
+        cout << rus("РЈСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕРµ РІСЂРµРјСЏ: ")
+             << COLOR(hour,    15)    << rus(" С‡") << " : " 
+             << COLOR(minutes, 15)    << rus(" Рј") << "\n";
+        cout << rus("РћСЃС‚Р°Р»РѕСЃСЊ РІСЃРµРіРѕ СЃРµРєСѓРЅРґ: ")
              << COLOR(allseconds, 15) << "\n";
     }
 }GlobalTime;
 
 #include "_Conwin.h"
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// "Интеллектуальный" ввод времени.                                           |
+/// "РРЅС‚РµР»Р»РµРєС‚СѓР°Р»СЊРЅС‹Р№" РІРІРѕРґ РІСЂРµРјРµРЅРё.                                           |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-class cMyLine///---------------------------------------------------------cMyLine
+class cGetUserTime///----------------------------------------------------cMyLine
 {
 public://---------------------------------------------------------------------->
     enum E_TYPEINPUT
@@ -184,7 +185,7 @@ public://---------------------------------------------------------------------->
     {   pConwin = _pConwin;
     }
     
-    cMyLine()
+    cGetUserTime()
     {   
     }
     
@@ -193,14 +194,14 @@ public://---------------------------------------------------------------------->
         {   
         }
         int h, m;
-        int reverse; // В минутах обратный отсчет.
+        int reverse; // Р’ РјРёРЅСѓС‚Р°С… РѕР±СЂР°С‚РЅС‹Р№ РѕС‚СЃС‡РµС‚.
         int allsecond;
     }Time;
 
     inline void propt()
-    {   cout << COLOR(rus("Введите время в одном из форматов:\n"), 15);
-        cout << rus("1. Количество минут до сигнала.\n");
-        cout << rus("2. Или в формате: Часы, Минуты\n   время сигнала.\n\n");
+    {   cout << COLOR(rus("Р’РІРµРґРёС‚Рµ РІСЂРµРјСЏ РІ РѕРґРЅРѕРј РёР· С„РѕСЂРјР°С‚РѕРІ:\n"), 15);
+        cout << rus("1. РљРѕР»РёС‡РµСЃС‚РІРѕ РјРёРЅСѓС‚ РґРѕ СЃРёРіРЅР°Р»Р°.\n");
+        cout << rus("2. РР»Рё РІ С„РѕСЂРјР°С‚Рµ: Р§Р°СЃС‹, РњРёРЅСѓС‚С‹\n   РІСЂРµРјСЏ СЃРёРіРЅР°Р»Р°.\n\n");
     }
 
     inline int get()//-----------------------------------------------------get()
@@ -230,46 +231,46 @@ public://---------------------------------------------------------------------->
             
             if(detail_error())
             {   cout << "Extract.error = " << COLOR(Extract.error, 12) << "\n";
-                cout << rus("\nПовторите ввод!") << "\n";
+                cout << rus("\nРџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ!") << "\n";
             }
             else
             {   cout << "Extract.error = " << COLOR(Extract.error, 10) << "\n";
-                cout << COLOR(rus("Значение Таймера УСТАНОВЛЕННО!"), 10) << "\n";
+                cout << COLOR(rus("Р—РЅР°С‡РµРЅРёРµ РўР°Р№РјРµСЂР° РЈРЎРўРђРќРћР’Р›Р•РќРќРћ!"), 10) << "\n";
             }
             cout << "===================================\n";
         }while(Extract.error);
         //--------------------------------------------------------------------->
         
         TYPEINPUT = (E_TYPEINPUT)Extract.i;
-        //cout << rus("Отлично! - TYPEINPUT = ") << TYPEINPUT << "\n";
+        //cout << rus("РћС‚Р»РёС‡РЅРѕ! - TYPEINPUT = ") << TYPEINPUT << "\n";
 
         switch(TYPEINPUT)
         {   case T_MINUTE:
-            {   PRN("Обратный отсчет:[Минуты]");
+            {   PRN("РћР±СЂР°С‚РЅС‹Р№ РѕС‚СЃС‡РµС‚:[РњРёРЅСѓС‚С‹]");
                 Time.reverse = Extract.m[0];
                 GlobalTime.converter_minutes_in_clock(Time.reverse);
-                cout << rus("Режим: ") << COLOR("T_MINUTE", 13) << "\n";
-                cout << rus("Осталось всего секунд: ") << GlobalTime.allseconds
+                cout << rus("Р РµР¶РёРј: ") << COLOR("T_MINUTE", 13) << "\n";
+                cout << rus("РћСЃС‚Р°Р»РѕСЃСЊ РІСЃРµРіРѕ СЃРµРєСѓРЅРґ: ") << GlobalTime.allseconds
                      << "\n";
                 return GlobalTime.allseconds*1000;
             }
 
             case T_CLOCK:
-            {   PRN("Часы:[Час, Mинуты]");
+            {   PRN("Р§Р°СЃС‹:[Р§Р°СЃ, MРёРЅСѓС‚С‹]");
                 Time.h = Extract.m[0];
                 Time.m = Extract.m[1];
                 GlobalTime.converter_clock_in_minutes(Time.h, Time.m);
-                cout << rus("Режим: ") << COLOR("T_CLOCK", 13) << "\n";
+                cout << rus("Р РµР¶РёРј: ") << COLOR("T_CLOCK", 13) << "\n";
                 return GlobalTime.allseconds*1000;
             }
             
             case T_ERROR:
-            {   PRN("Режим времени не установлен!\n");
+            {   PRN("Р РµР¶РёРј РІСЂРµРјРµРЅРё РЅРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅ!\n");
                 break;
             }
 
             default:
-                PRN("Неизвестный режим!\n");
+                PRN("РќРµРёР·РІРµСЃС‚РЅС‹Р№ СЂРµР¶РёРј!\n");
         }
 
         system("pause");
@@ -309,7 +310,7 @@ private://--------------------------------------------------------------------->
                 if(isdigit(*p))
                 {   if(i == 2)
                     {   error |= 2;
-                        PRN("Слишком много данных!\n");
+                        PRN("РЎР»РёС€РєРѕРј РјРЅРѕРіРѕ РґР°РЅРЅС‹С…!\n");
                         return;
                     }
                     m[i++] = getgigit(p);
@@ -317,7 +318,7 @@ private://--------------------------------------------------------------------->
                     if(*p == 0)
                     {   if(poz_symb == cExtract::N-1)
                         {   error |= 16;
-                            PRN("Слишком много символов!\n");
+                            PRN("РЎР»РёС€РєРѕРј РјРЅРѕРіРѕ СЃРёРјРІРѕР»РѕРІ!\n");
                             std::cin.clear();
                             std::cin.ignore(32767, '\n');
                             return;
@@ -330,7 +331,7 @@ private://--------------------------------------------------------------------->
             }
             if(0 == i) 
             {   error |=  1;
-                PRN("Ввод пустой строки!\n");
+                PRN("Р’РІРѕРґ РїСѓСЃС‚РѕР№ СЃС‚СЂРѕРєРё!\n");
             }
         }
 
@@ -345,8 +346,8 @@ private://--------------------------------------------------------------------->
                 poz_symb++;
             }
             s[i] = NULL;
-            if(i > 4) error |= 4; // "Разряднось времени превышена!"
-            if(i > 2) error |= 8; // "Разряднось времени превышена!"
+            if(i > 4) error |= 4; // "Р Р°Р·СЂСЏРґРЅРѕСЃСЊ РІСЂРµРјРµРЅРё РїСЂРµРІС‹С€РµРЅР°!"
+            if(i > 2) error |= 8; // "Р Р°Р·СЂСЏРґРЅРѕСЃСЊ РІСЂРµРјРµРЅРё РїСЂРµРІС‹С€РµРЅР°!"
             //cout << "test1 = " << atoi(s) << "\n";
             return atoi(s);
         }
@@ -354,35 +355,35 @@ private://--------------------------------------------------------------------->
 
     bool detail_error()//-----------------------------------------detail_error()
     {   if(BIT_IS1(Extract.error, 4)) 
-        {   PRN("Слишком много символов!-2");
-            PRN("(не более 30 символов)\n");
+        {   PRN("РЎР»РёС€РєРѕРј РјРЅРѕРіРѕ СЃРёРјРІРѕР»РѕРІ!-2");
+            PRN("(РЅРµ Р±РѕР»РµРµ 30 СЃРёРјРІРѕР»РѕРІ)\n");
             return true;
         }
         
         //if(Extract.i == 2 && BIT_IS1(Extract.error, 3) ) return true;
         if(Extract.i == 2)
              {   if(BIT_IS1(Extract.error, 3) || BIT_IS1(Extract.error, 2))
-                 {   PRN("Превышен диапазон значений:");
-                     PRN("Часы[0-23],Минуты[0-59].");
+                 {   PRN("РџСЂРµРІС‹С€РµРЅ РґРёР°РїР°Р·РѕРЅ Р·РЅР°С‡РµРЅРёР№:");
+                     PRN("Р§Р°СЃС‹[0-23],РњРёРЅСѓС‚С‹[0-59].");
                      return true;
                  }
 
                  if(Extract.m[0] > 23) 
-                 {   PRN("Значение часа превышено!");
-                     PRN("(диапазон значений: [0-23])");
+                 {   PRN("Р—РЅР°С‡РµРЅРёРµ С‡Р°СЃР° РїСЂРµРІС‹С€РµРЅРѕ!");
+                     PRN("(РґРёР°РїР°Р·РѕРЅ Р·РЅР°С‡РµРЅРёР№: [0-23])");
                      Extract.error |= 64;
                      return true;
                  }
                  else if(Extract.m[1] > 59)
-                 {   PRN("Значение минут превышено!");
-                     PRN("(диапазон значений: [0-59])");
+                 {   PRN("Р—РЅР°С‡РµРЅРёРµ РјРёРЅСѓС‚ РїСЂРµРІС‹С€РµРЅРѕ!");
+                     PRN("(РґРёР°РїР°Р·РѕРЅ Р·РЅР°С‡РµРЅРёР№: [0-59])");
                      Extract.error |= 128;
                      return true;
                  }
              }
         else if((Extract.i == 1) && Extract.m[1] > 9999)
-             {   PRN("Количество минут превышено!");
-                 PRN("(диапазон значений: [0-9999])");
+             {   PRN("РљРѕР»РёС‡РµСЃС‚РІРѕ РјРёРЅСѓС‚ РїСЂРµРІС‹С€РµРЅРѕ!");
+                 PRN("(РґРёР°РїР°Р·РѕРЅ Р·РЅР°С‡РµРЅРёР№: [0-9999])");
                  Extract.error |= 4;
                  //orbit(Extract.error, 00000000100b);
                  return true;

@@ -26,9 +26,6 @@
     <ClInclude Include="Sources\!myTimer.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\_cmyGetLine.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\_Conwin.h">
       <Filter>Sources</Filter>
     </ClInclude>
@@ -45,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sources\ShowBMP.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\_cmyGetLine.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>

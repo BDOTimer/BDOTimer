@@ -1,10 +1,10 @@
-#include <mmsystem.h>
+ï»¿#include <mmsystem.h>
 #pragma comment(lib, "WinMM.Lib")
 
 #define ONCE {static bool once = false;if(once)return 99;once = true;}
 
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// Èãðàåì MIDI.                                                               |
+/// Ð˜Ð³Ñ€Ð°ÐµÐ¼ MIDI.                                                               |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 class cMIDI
 {
@@ -52,7 +52,7 @@ m0:         mciSendCommand(wDeviceID, MCI_CLOSE, 0, NULL);
         // playback is complete. At this time, the window procedure closes 
         // the device.
         mciPlayParms.dwCallback = (DWORD)hWndNotify;
-        // Ïîçèöèîíèðîâàíèå â íà÷àëî:
+        // ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ð¾Ð½Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð² Ð½Ð°Ñ‡Ð°Ð»Ð¾:
         mciSendCommand(wDeviceID, MCI_SEEK, MCI_WAIT | MCI_SEEK_TO_START, NULL);
         if (error_status = mciSendCommand(wDeviceID, MCI_PLAY, MCI_NOTIFY,
             (DWORD)(LPVOID)&mciPlayParms))
@@ -80,7 +80,7 @@ private:
     MCI_SEQ_SET_PARMS mciSeqSetParms;
 
     void startsignal() 
-    {   // Åñëè òû ìóçûêàíò, òî ïðàâü ýòîò ôàéë))---------------------------------->
+    {   // Ð•ÑÐ»Ð¸ Ñ‚Ñ‹ Ð¼ÑƒÐ·Ñ‹ÐºÐ°Ð½Ñ‚, Ñ‚Ð¾ Ð¿Ñ€Ð°Ð²ÑŒ ÑÑ‚Ð¾Ñ‚ Ñ„Ð°Ð¹Ð»))---------------------------------->
         /*
         Beep(1480,200);
         Beep(1568,200);
@@ -97,7 +97,7 @@ private:
         Beep(392,400);
         Beep(196,400);*/
 
-        // Åùå îäèí ïðîñòîé âàðèàíò:----------------------------------------------->
+        // Ð•Ñ‰Ðµ Ð¾Ð´Ð¸Ð½ Ð¿Ñ€Ð¾ÑÑ‚Ð¾Ð¹ Ð²Ð°Ñ€Ð¸Ð°Ð½Ñ‚:----------------------------------------------->
         std::cout << rus("\a\a\a\a\a\a");
     }
 };

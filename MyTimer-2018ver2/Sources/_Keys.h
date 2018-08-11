@@ -1,7 +1,7 @@
-#include "Makros.h"
+п»ї#include "Makros.h"
 
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// Отлов нажатых клавиш.                                                      |
+/// РћС‚Р»РѕРІ РЅР°Р¶Р°С‚С‹С… РєР»Р°РІРёС€.                                                      |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 class cKeys
 {
@@ -54,7 +54,7 @@ private:
     {   HWND stealth;
         AllocConsole();
         stealth = FindWindowA("consoleWindowClass", NULL);
-        ShowWindow(stealth, 1);  //1-видим окно, 0 - невидмиое окно
+        ShowWindow(stealth, 1);  //1-РІРёРґРёРј РѕРєРЅРѕ, 0 - РЅРµРІРёРґРјРёРѕРµ РѕРєРЅРѕ
     }
 
     void beep()

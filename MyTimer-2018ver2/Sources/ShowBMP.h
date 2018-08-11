@@ -1,4 +1,4 @@
-#include "Makros.h"
+п»ї#include "Makros.h"
 
 class cDrawBM
 {
@@ -90,17 +90,17 @@ public:
         hbmp = (HBITMAP)SelectObject(hMemDC, hBitmap);
 
         if (hbmp)
-        {   // Для контекста памяти:
+        {   // Ж’Р»В¤ РєРѕРЅС‚РµРєСЃС‚Р° РїР°РјВ¤С‚Рё:
             SetMapMode(hMemDC, GetMapMode(hdc));
 
-            // Определяем размеры изображения:
+            // СњРїСЂРµРґРµР»В¤РµРј СЂР°Р·РјРµСЂС‹ РёР·РѕР±СЂР°Р¶РµРЅРёВ¤:
             GetObject(hBitmap, sizeof(BITMAP), (LPSTR) &bm);
  
             ptSize.x = bm.bmWidth;
             ptSize.y = bm.bmHeight;
 
-            // Преобразуем координаты устройства в логические
-            // для устройства вывода:
+            // С•СЂРµРѕР±СЂР°Р·СѓРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ СѓСЃС‚СЂРѕР№СЃС‚РІР° РІ Р»РѕРіРёС‡РµСЃРєРёРµ
+            // РґР»В¤ СѓСЃС‚СЂРѕР№СЃС‚РІР° РІС‹РІРѕРґР°:
             DPtoLP(hdc, &ptSize, 1);
  
             ptOrg.x = 0;
