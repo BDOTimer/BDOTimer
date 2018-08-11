@@ -6,7 +6,7 @@
 #ifndef MAKROS_H//ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo|
 #define MAKROS_H
 
-#include "Connector.h"
+#include "_Connector.h"
 #include "../resource.h"
 
 using std::cout;

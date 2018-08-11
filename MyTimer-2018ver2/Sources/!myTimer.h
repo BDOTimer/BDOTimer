@@ -7,7 +7,7 @@
 #include "_Conwin.h"
 #include "_Keys.h"
 #include "_MIDI.h"
-#include "ShowBMP.h"
+#include "_ShowBMP.h"
 
 class cMyTimer
 {
