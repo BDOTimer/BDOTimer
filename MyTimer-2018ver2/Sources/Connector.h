@@ -1,10 +1,9 @@
-///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-///   Kartonagnick©                                                            |
-///   Пример простейшего делегата.                                             |
+п»ї///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+///   РџСЂРёРјРµСЂ РїСЂРѕСЃС‚РµР№С€РµРіРѕ РґРµР»РµРіР°С‚Р°.                                             |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 
 #include <iostream>
-//--детали реализации простейшего делегата------------------------------------->
+//--РґРµС‚Р°Р»Рё СЂРµР°Р»РёР·Р°С†РёРё РїСЂРѕСЃС‚РµР№С€РµРіРѕ РґРµР»РµРіР°С‚Р°------------------------------------->
 namespace detail{
 
     struct empty;
@@ -38,11 +37,11 @@ namespace detail{
 }//namespace detail
 
 
-//--собственно сам делегат:----------------------------------------------------v
-//  синтаксис: 
-//    connector con = функция;
-//    connector con = функор;
-//    connector con(объект, указатель_на_метод);
+//--СЃРѕР±СЃС‚РІРµРЅРЅРѕ СЃР°Рј РґРµР»РµРіР°С‚:----------------------------------------------------v
+//  СЃРёРЅС‚Р°РєСЃРёСЃ: 
+//    connector con = С„СѓРЅРєС†РёСЏ;
+//    connector con = С„СѓРЅРєРѕСЂ;
+//    connector con(РѕР±СЉРµРєС‚, СѓРєР°Р·Р°С‚РµР»СЊ_РЅР°_РјРµС‚РѕРґ);
 
 struct connector
 {
