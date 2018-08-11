@@ -43,7 +43,7 @@ namespace detail{
 //    connector con = функор;
 //    connector con(объект, указатель_на_метод);
 
-struct connector
+struct connector       
 {
    ~connector() { delete caller; }
 

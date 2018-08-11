@@ -15,14 +15,6 @@ int main()
 
     /*cout << "Оля любит Яшу.\n";
     _getch   ();*/
-    
-    //emul();
-    /*HWND hwnd = GetConsoleWindow();
-    DrawBM.init(hwnd);
-    DrawBM.Draw_center();
-    Sleep(5000);*/
-    //drawtext();
-    //Sleep(5000);
 
     if(chek_mutex()) return 0;
     //PRN("Привет!\n");

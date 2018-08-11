@@ -73,7 +73,7 @@ public:
     void setmode_monitor()
     {   mode = M_MONITOR;
         system (MODE_MONITOR);
-        SetConsoleTitle(rus("Æä¸ì..."));
+        SetConsoleTitleW(L"Æä¸ì...");
     }
     void inverse_visible()
     {   bVisible = !bVisible;

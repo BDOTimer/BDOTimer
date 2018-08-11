@@ -3,7 +3,7 @@
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 #include "Makros.h"
 
-#include "_cmyGetLine.h"
+#include "_GetUserTime.h"
 #include "_Conwin.h"
 #include "_Keys.h"
 #include "_MIDI.h"
