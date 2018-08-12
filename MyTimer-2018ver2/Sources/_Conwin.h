@@ -7,7 +7,6 @@ const char* MODE_MONITOR = "mode con cols=15 lines=1";
 const char* MODE_INPUT3  = "mode con cols=35 lines=3";
 const char* MODE_INPUT24 = "mode con cols=35 lines=20";
 
-char* rus(const char*);
 
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 /// Операции с окном консоли.                                                  |

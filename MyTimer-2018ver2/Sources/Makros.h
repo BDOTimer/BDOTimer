@@ -7,7 +7,7 @@
 #define MAKROS_H
 
 #include "_Connector.h"
-#include "../resource.h"
+#include "..\vs2010\resource.h"
 
 using std::cout;
 
@@ -23,11 +23,10 @@ using std::cout;
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 /// Поддержка русской кодировки.                                               |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-//static char  bufRus[256];
-inline char* rus(const char* _text)
+//char  bufRus[256];
+inline const char* rus(const char* _text)
 {   //CharToOem(_text, bufRus);
-    
-    return (char*)_text;
+    return _text;
 }
 
 #define    SIG cout << "SIGNAL!\n";

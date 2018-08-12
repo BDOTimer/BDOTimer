@@ -91,12 +91,12 @@ public:
 
 private:
     ///------------------------------------------------------------------------>
-    cKeys   Keys;
-    cConwin Conwin;
+    cKeys        Keys;
+    cConwin      Conwin;
     cGetUserTime UserTime;
-    cMIDI   MIDI;
+    cMIDI        MIDI;
 
-    int     user_input_time; // в секундах.
+    int          user_input_time; // в секундах.
     
     void cursor(int _v = TRUE)
     {   CONSOLE_CURSOR_INFO C;
@@ -200,7 +200,6 @@ private:
         MIDI.play();
 DrawBM.init();
 DrawBM.Draw_center();
-//Sleep(5000);
         
         TimeToAct();
         return e_INPUT;
@@ -228,7 +227,9 @@ DrawBM.Draw_center();
         {   //ShowWindowAsync(Conwin.hwnd, SW_SHOW);
             OpenIcon(Conwin.hwnd);
             system("cls");
-            SetWindowPos(Conwin.hwnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+            SetWindowPos(Conwin.hwnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE |
+                                                            SWP_NOSIZE |
+                                                            SWP_SHOWWINDOW);
             Conwin.setmode_input();
         
     
@@ -246,6 +247,7 @@ DrawBM.Draw_center();
     }
 };
 
+// not_use
 inline void HandleInstanceMessage(HWND AppWnd)
 {
     HWND H;
@@ -253,11 +255,10 @@ inline void HandleInstanceMessage(HWND AppWnd)
     BOOL R;
     LPDWORD lpdwProcessId;
 
-    H = GetForegroundWindow();
+    H     = GetForegroundWindow();
     ThrID = GetWindowThreadProcessId(H, lpdwProcessId);
     CurID = GetCurrentThreadId();
-    R = AttachThreadInput(CurID, ThrID, true);
+    R     = AttachThreadInput(CurID, ThrID, true);
     SetForegroundWindow(AppWnd);
-    if(R)
-        AttachThreadInput(CurID, ThrID, false);
+    if(R) AttachThreadInput(CurID, ThrID, false);
 }
