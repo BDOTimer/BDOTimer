@@ -102,7 +102,7 @@ public:
     ///vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 private:
-    // Просерка активности нашего окна:---------------------------------------->
+    // Проверка активности нашего окна:---------------------------------------->
     bool check_active()
     {   HWND a = GetForegroundWindow();
         if(a == hwnd) return true;
