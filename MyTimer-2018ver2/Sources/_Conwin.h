@@ -1,4 +1,4 @@
-#include "Makros.h"
+ï»¿#include "Makros.h"
 
 #ifndef CONWIN_H//ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo|
 #define CONWIN_H
@@ -10,7 +10,7 @@ const char* MODE_INPUT24 = "mode con cols=35 lines=20";
 char* rus(const char*);
 
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// Îïåðàöèè ñ îêíîì êîíñîëè.                                                  |
+/// ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ Ð¾ÐºÐ½Ð¾Ð¼ ÐºÐ¾Ð½ÑÐ¾Ð»Ð¸.                                                  |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 class cConwin
 {
@@ -18,14 +18,14 @@ public:
     HANDLE hCon_OUTPUT;
     HANDLE hCon_INPUT;
     HWND   hwnd;
-    bool   bVisible; // Èíäèêàòîð âèäèìîñòè.
+    bool   bVisible; // Ð˜Ð½Ð´Ð¸ÐºÐ°Ñ‚Ð¾Ñ€ Ð²Ð¸Ð´Ð¸Ð¼Ð¾ÑÑ‚Ð¸.
 
     enum   MODE
     {   M_INPUT,
         M_MONITOR
     }mode;
 
-    // Êîíñòðóêòîð:------------------------------------------------------------>
+    // ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€:------------------------------------------------------------>
     cConwin() : bVisible(true), mode(M_INPUT)
     {   hCon_OUTPUT = GetStdHandle(STD_OUTPUT_HANDLE);
         if( hCon_OUTPUT == INVALID_HANDLE_VALUE )
@@ -73,7 +73,7 @@ public:
     void setmode_monitor()
     {   mode = M_MONITOR;
         system (MODE_MONITOR);
-        SetConsoleTitleW(L"Æä¸ì...");
+        SetConsoleTitle("Ð–Ð´Ñ‘Ð¼...");
     }
     void inverse_visible()
     {   bVisible = !bVisible;
@@ -102,7 +102,7 @@ public:
     ///vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 private:
-    // Ïðîñåðêà àêòèâíîñòè íàøåãî îêíà:---------------------------------------->
+    // ÐŸÑ€Ð¾ÑÐµÑ€ÐºÐ° Ð°ÐºÑ‚Ð¸Ð²Ð½Ð¾ÑÑ‚Ð¸ Ð½Ð°ÑˆÐµÐ³Ð¾ Ð¾ÐºÐ½Ð°:---------------------------------------->
     bool check_active()
     {   HWND a = GetForegroundWindow();
         if(a == hwnd) return true;
