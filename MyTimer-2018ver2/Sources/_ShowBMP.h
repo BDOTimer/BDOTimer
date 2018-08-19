@@ -86,7 +86,6 @@ public:
         POINT   ptSize, ptOrg;
 
         hMemDC = CreateCompatibleDC(hdc);
-
         hbmp = (HBITMAP)SelectObject(hMemDC, hBitmap);
 
         if (hbmp)

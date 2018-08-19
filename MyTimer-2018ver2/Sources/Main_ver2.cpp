@@ -1,5 +1,5 @@
 ﻿///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// MyTimer-ver2.0.0.9                                                         |
+/// MyTimer-ver2.0.0.10                                                         |
 /// IDE VS2010.                                                                |
 /// Тext of this sources must have UTF8 codepage.                              |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
@@ -33,6 +33,7 @@ public:
         f = 0;
         _getch();
     }
+
     void look()
     {   char buffer[255];   
         LCID cid = GetSystemDefaultLCID();
@@ -52,20 +53,28 @@ void control_blink(BOOL _b = TRUE)
     structCursorInfo.bVisible = _b;
     SetConsoleCursorInfo( handle, &structCursorInfo );
 }
-
+#include <gdiplus.h>
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 /// MAIN.                                                                      |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+void bla(HWND _hWnd);
 int main()
-{   setfont_01();
+{   //bla(GetConsoleWindow());
+
+    setfont_01();
 
     if(chek_mutex()) return 0;
 
     myicon();
 
     cMyTimer MyTimer;
+    
     MyTimer.process ();
 
     system("pause");
     return 0;
 }
+
+
+
+

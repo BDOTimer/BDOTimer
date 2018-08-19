@@ -3,11 +3,11 @@
 #ifndef CONWIN_H//ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo|
 #define CONWIN_H
 
-const char* MODE_MONITOR = "mode con cols=15 lines=1";
+const char* MODE_MONITOR = "mode con cols=22 lines=1";
 const char* MODE_INPUT3  = "mode con cols=35 lines=3";
 const char* MODE_INPUT24 = "mode con cols=35 lines=20";
 
-
+extern HWND hWndParent;
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 /// Операции с окном консоли.                                                  |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
@@ -18,6 +18,8 @@ public:
     HANDLE hCon_INPUT;
     HWND   hwnd;
     bool   bVisible; // Индикатор видимости.
+
+    HWND   hWndTaskbar;
 
     enum   MODE
     {   M_INPUT,
@@ -35,6 +37,9 @@ public:
         {   //syserror();
         }
         hwnd = GetConsoleWindow();
+        hWndTaskbar = FindWindow("Shell_TrayWnd", NULL);
+        //hWndTaskbar = FindWindowEx(hWndTaskbar, NULL, "MSTaskSwWClass", NULL);
+        //hWndTaskbar = FindWindowEx(hWndTaskbar, NULL, "ToolbarWindow32", NULL);
     }
 
     bool check_active_visible()
@@ -43,8 +48,15 @@ public:
     }
 
     inline void show()
-    {   ShowWindow(hwnd,SW_NORMAL);
+    {   SetWindowLong(hwnd, GWL_HWNDPARENT, 0);
+        ShowWindow(hwnd,SW_NORMAL);//SW_NORMAL) hWndParent
+        //SetWindowLong(hwnd ,GWL_STYLE,WS_CHILDWINDOW);
+///--------------------------
+//ShowWindow(hWndTaskbar,SW_NORMAL);
+
         SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_SHOWWINDOW);
+
+
         bVisible = true;
 
         switch(mode)
@@ -61,6 +73,8 @@ public:
     {   ShowWindow(hwnd,SW_MINIMIZE);//SW_NORMAL
         SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_HIDEWINDOW);
         bVisible = false;
+
+//ShowWindow(hWndTaskbar,SW_HIDE);
     }
 
     ///^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -95,6 +109,9 @@ public:
             SetWindowPos(hwnd, HWND_TOP, 0, 0, 0, 0,SWP_NOMOVE | 
                 SWP_NOSIZE | SWP_SHOWWINDOW);
             SetForegroundWindow(hwnd);
+
+//ShowWindow(hWndParent,SW_HIDE);
+//SetWindowLong(hwnd, GWL_HWNDPARENT, (LONG)hWndParent);
         }
         
     }
