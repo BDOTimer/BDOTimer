@@ -114,7 +114,6 @@ private:
                                           WS_SYSMENU
             );
             cursor(FALSE);
-
             UserTime.init(&Conwin);
             Conwin.show();
             Conwin.setmode_input();
@@ -164,14 +163,17 @@ private:
 
     eMODECONSOLWIN monitor()//-----------------------------------------monitor()
     {   system("cls");
-        int t = user_input_time;
+
         Conwin.noshow();
         Conwin.setmode_monitor();
-        for(int i = t; i > 0; i -= 500)
+        for(int t = user_input_time; t > 0; t -= 500)
         {   if(Conwin.bVisible)
-                std::cout << "\r " << COLOR(i/1000, 14) << rus(" секунд.");
-
-            Sleep(500);
+            {   std::cout << "\r              \r ";
+                std::cout << rus("Осталось - ") 
+                          << COLOR(hour_min_sec(t), 14)
+                          << "";
+            }
+            Sleep(500); 
 
             if(Conwin.check_active_visible() && Keys.key_Stop()) 
             {   system("cls");
@@ -183,12 +185,9 @@ private:
                 return e_INPUT;
             }
 
-            if(Keys.key_Visible()) 
+            if(Keys.key_Visible())
             {   Conwin.inverse_visible();
             }
-
-            if(Conwin.bVisible)
-                std::cout << "\r                                         ";
         }
 
         system("cls");
@@ -244,6 +243,31 @@ DrawBM.Draw_center();
             }
             Sleep(200);
         }
+    }
+
+    const char* hour_min_sec(int _ms)
+    {     _ms = _ms / 1000;
+        int m = _ms / 60;
+        int s = _ms - m *60;
+        int h =  m  / 60;
+            m =  m  - h * 60 ;
+        static char str_hms[32];
+        str_hms[0] = 0;
+        itoa(h, str_hms, 10);
+        strcat(str_hms, ":");
+
+        char    temp[16];
+        itoa(m, temp, 10);
+        strcat(str_hms, temp);
+        strcat(str_hms, ":");
+
+        itoa(s, temp, 10);
+        strcat(str_hms, temp);
+
+        if(strlen(str_hms) + 13 > 21)
+        {   return "\rOUTSTRING   ";
+        }
+        return str_hms;
     }
 };
 
