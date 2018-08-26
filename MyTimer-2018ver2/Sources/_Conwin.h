@@ -3,7 +3,7 @@
 #ifndef CONWIN_H//ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo|
 #define CONWIN_H
 
-const char* MODE_MONITOR = "mode con cols=22 lines=1";
+const char* MODE_MONITOR = "mode con cols=24 lines=1";
 const char* MODE_INPUT3  = "mode con cols=35 lines=3";
 const char* MODE_INPUT24 = "mode con cols=35 lines=20";
 

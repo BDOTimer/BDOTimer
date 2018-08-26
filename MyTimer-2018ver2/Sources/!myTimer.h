@@ -35,7 +35,7 @@ public:
             {   Conwin.inverse_visible();
                 Conwin.set_active     ();
                 if(Conwin.bVisible)
-                {   UserTime.propt();
+                {   UserTime.prompt();
 
                 /*cout << ">>> ";
                 cout << myLine.getstr();
@@ -173,6 +173,7 @@ private:
                           << COLOR(hour_min_sec(t), 14)
                           << "";
             }
+
             Sleep(500); 
 
             if(Conwin.check_active_visible() && Keys.key_Stop()) 
@@ -264,7 +265,7 @@ DrawBM.Draw_center();
         itoa(s, temp, 10);
         strcat(str_hms, temp);
 
-        if(strlen(str_hms) + 13 > 21)
+        if(strlen(str_hms) + 13 > 23)
         {   return "\rOUTSTRING   ";
         }
         return str_hms;

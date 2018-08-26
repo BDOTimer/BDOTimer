@@ -1,5 +1,5 @@
 ﻿///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-/// MyTimer-ver2.0.0.10                                                         |
+/// MyTimer-ver2.0.0.11                                                        |
 /// IDE VS2010.                                                                |
 /// Тext of this sources must have UTF8 codepage.                              |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
@@ -53,7 +53,7 @@ void control_blink(BOOL _b = TRUE)
     structCursorInfo.bVisible = _b;
     SetConsoleCursorInfo( handle, &structCursorInfo );
 }
-#include <gdiplus.h>
+//    #include <gdiplus.h>
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 /// MAIN.                                                                      |
 ///ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
