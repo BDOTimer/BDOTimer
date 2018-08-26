@@ -108,30 +108,31 @@ class cGlobalTime
 {
 public:
     int    allseconds;
-    int    hour;
-    int    minutes;
+    int    hour_signal;
+    int    minutes_signal;
 
     // Колво минут обратного осчета в часы.------------------------------------>
     void converter_minutes_in_clock(int _minutes)
     {   get_nowtime();
         allseconds = _minutes * 60;
-        time_t globalsec_future  = time(0) + _minutes * 60;
-        globaltime_future = localtime(&globalsec_future);
-        hour    = globaltime_future->tm_hour;
-        minutes = globaltime_future->tm_min;
+        hour_signal    = globaltime->tm_hour + _minutes / 60;
+        minutes_signal = globaltime->tm_min  + _minutes % 60;
+        hour_signal   += minutes_signal / 60;
+        minutes_signal = minutes_signal % 60;
+
         show();
     }
     // Часы в минуты обратного осчета.----------------------------------------->
     void converter_clock_in_minutes(int _h, int _m)
-    {       get_nowtime();
+    {   get_nowtime();
         int timesec    = (globaltime->tm_hour * 60 +
                           globaltime->tm_min) * 60 +
                           globaltime->tm_sec;
 
-            allseconds    = (60 * _h + _m)*60 - timesec;// От начала суток.
-            if(allseconds < 0) allseconds += SECINDAY;
-            hour          = _h;
-            minutes       = _m;
+        allseconds    = (60 * _h + _m)*60 - timesec;// От начала суток.
+        if(allseconds < 0) allseconds += SECINDAY;
+        hour_signal          = _h;
+        minutes_signal       = _m;
 
         show();
     }
@@ -139,7 +140,6 @@ public:
 private:
     time_t globalsec;
     tm*    globaltime;
-    tm*    globaltime_future;
 
     static const int SECINDAY = 86400; // Кол-во секунд в сутках.
 
@@ -153,8 +153,8 @@ private:
              << COLOR(globaltime->tm_hour, 15) << rus(" ч") << " : " 
              << COLOR(globaltime->tm_min,  15) << rus(" м") << "\n";
         cout << rus("Установленное время: ")
-             << COLOR(hour,    15)    << rus(" ч") << " : " 
-             << COLOR(minutes, 15)    << rus(" м") << "\n";
+             << COLOR(hour_signal,    15)    << rus(" ч") << " : " 
+             << COLOR(minutes_signal, 15)    << rus(" м") << "\n";
         cout << rus("Осталось всего секунд: ")
              << COLOR(allseconds, 15) << "\n";
     }
@@ -188,11 +188,11 @@ public://---------------------------------------------------------------------->
         {   
         }
         int h, m;
-        int reverse; // В минутах обратный отсчет.
+        int reverse;   // В минутах обратный отсчет.
         int allsecond;
     }Time;
 
-    inline void propt()
+    inline void prompt()
     {   cout << COLOR(rus("Введите время в одном из форматов:\n"), 15);
         cout << rus("1. Количество минут до сигнала.\n");
         cout << rus("2. Или в формате: Часы, Минуты\n   время сигнала.\n\n");
@@ -201,21 +201,21 @@ public://---------------------------------------------------------------------->
     inline int get()//-----------------------------------------------------get()
     {   system("cls");
         TYPEINPUT = T_ERROR;
-        propt();
+        prompt();
 
         do//------------------------------------------------------------------->
         {   
             FlushConsoleInputBuffer(pConwin->hCon_INPUT);
             cout << ">>> ";
 
-            str[0] = '\0';
-            myGetLine.get(str, cExtract::N);
+            myline[0] = '\0';
+            myGetLine.get(myline, cExtract::N);
 
             system("cls");
             
-            cout << "str = " << str << std::endl;
+            cout << "str = " << myline << std::endl;
 
-            Extract.make(str);
+            Extract.make(myline);
             Extract.deb_show();
             
             if(detail_error())
@@ -230,8 +230,7 @@ public://---------------------------------------------------------------------->
         }while(Extract.error);
         //--------------------------------------------------------------------->
         
-        TYPEINPUT = (E_TYPEINPUT)Extract.i;
-        //cout << rus("Отлично! - TYPEINPUT = ") << TYPEINPUT << "\n";
+        TYPEINPUT = (E_TYPEINPUT)Extract.amount_var;
 
         switch(TYPEINPUT)
         {   case T_MINUTE:
@@ -239,8 +238,6 @@ public://---------------------------------------------------------------------->
                 Time.reverse = Extract.m[0];
                 GlobalTime.converter_minutes_in_clock(Time.reverse);
                 cout << rus("Режим: ") << COLOR("T_MINUTE", 13) << "\n";
-                cout << rus("Осталось всего секунд: ") << GlobalTime.allseconds
-                     << "\n";
                 return GlobalTime.allseconds*1000;
             }
 
@@ -254,7 +251,7 @@ public://---------------------------------------------------------------------->
             }
             
             case T_ERROR:
-            {   PRN("Режим времени не установлен!\n");
+            {   PRN("Неверный код программы!\n");
                 break;
             }
 
@@ -265,7 +262,7 @@ public://---------------------------------------------------------------------->
         system("pause");
         return -1;
     }
-    inline char* getstr(){return str;}
+    inline char* getstr(){return myline;}
 
 private://--------------------------------------------------------------------->
 
@@ -278,32 +275,35 @@ private://--------------------------------------------------------------------->
         //--------------------------------------------------------------------->
         int m[3];
         int numberdigit[3];
-        int i;
+        int amount_var;
         int error;
         char* pMessErr;
 
         //----------------------------------------------------------------init()
-        inline void init(){  m[0] = m[1] = m[2] = -999; i = 0; error = 0;}
+        inline void init(){  m[0] = m[1] = m[2] = -999; amount_var = 0; error = 0;}
+
+#ifdef MYDEBUG
         void deb_show()//---------------------------------------------deb_show()
         {   cout << m[0] << "." << m[1] << "." << m[2] << "\n"
-            << "i = " << i << "\n";
+            << "i = " << amount_var << "\n";
         }
+#endif
 
         inline void make(char* p)//---------------------------------------make()
         {   init();
 
-            i = 0;
+            amount_var = 0;
             poz_symb = 0;
 
             while(*p != 0)
             {   //cout << *p;
                 if(isdigit(*p))
-                {   if(i == 2)
+                {   if(amount_var == 2)
                     {   error |= 2;
                         PRN("Слишком много данных!\n");
                         return;
                     }
-                    m[i++] = getgigit(p);
+                    m[amount_var++] = getgigit(p);
 
                     if(*p == 0)
                     {   if(poz_symb == cExtract::N-1)
@@ -320,7 +320,7 @@ private://--------------------------------------------------------------------->
                 p++;
             }
 
-            if(0 == i) 
+            if(0 == amount_var) 
             {   error |=  1;
                 PRN("Ввод пустой строки!\n");
             }
@@ -352,7 +352,7 @@ private://--------------------------------------------------------------------->
         
         
         //if(Extract.i == 2 && BIT_IS1(Extract.error, 3) ) return true;
-        if(Extract.i == 2)
+        if(Extract.amount_var == 2)
              {   if(BIT_IS1(Extract.error, 3) || BIT_IS1(Extract.error, 2))
                  {   PRN("Превышен диапазон значений:");
                      PRN("Часы[0-23],Минуты[0-59].");
@@ -373,7 +373,7 @@ private://--------------------------------------------------------------------->
                  }
 
              }
-        else if((Extract.i == 1) && BIT_IS1(Extract.error, 2))
+        else if((Extract.amount_var == 1) && BIT_IS1(Extract.error, 2))
              {   PRN("Количество минут превышено!");
                  PRN("(диапазон значений: [0-9999])");
                  Extract.error |= 4;
@@ -401,5 +401,5 @@ private://--------------------------------------------------------------------->
         else std::cin.ignore(32767,'\n');*/
     }
 
-    char str[cExtract::N];
+    char myline[cExtract::N];
 };
