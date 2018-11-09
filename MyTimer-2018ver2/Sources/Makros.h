@@ -91,4 +91,11 @@ void myicon()
     FreeLibrary(hmod); 
 }
 
+inline void cursor_show(HANDLE _hConsole, BOOL _B)
+{   static CONSOLE_CURSOR_INFO structCursorInfo;
+    GetConsoleCursorInfo(_hConsole, &structCursorInfo);
+    structCursorInfo.bVisible = _B;
+    SetConsoleCursorInfo(_hConsole, &structCursorInfo );
+}
+
 #endif//ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo|

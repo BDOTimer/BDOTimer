@@ -214,6 +214,7 @@ DrawBM.Draw_center();
 
     void TimeToAct()
     {   Conwin.set_active();
+        cursor_show(Conwin.hCon_OUTPUT, FALSE);
 
         RECT* rect = nullptr;
         GetWindowRect(Conwin.hwnd, rect);
@@ -240,10 +241,12 @@ DrawBM.Draw_center();
         {   if(Conwin.check_active_visible() && Keys.key_Stop()) 
             {   MIDI.stop();
                 Conwin.inverse_visible();
+                cursor_show(Conwin.hCon_OUTPUT, TRUE);
                 return;
             }
             Sleep(200);
         }
+        
     }
 
     const char* hour_min_sec(int _ms)
@@ -268,6 +271,8 @@ DrawBM.Draw_center();
         if(strlen(str_hms) + 13 > 23)
         {   return "\rOUTSTRING   ";
         }
+        strcat(str_hms, "   ");
+
         return str_hms;
     }
 };
