@@ -2,9 +2,9 @@
 
 # Ахтунг!
 
-для xmltest.exe добавил длл-ку.
+для xmltest.exe компилятор поменял на Intel C++18
 
-для TesWinform скомпилил с toolset'ом ver 100
+для Heloword.exe VC++2010
 
 проверяй!
 
